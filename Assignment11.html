@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            border-radius: 5px;
+            border: 2px solid black;
+            margin: 20px;
+            padding: 20px;
+        }
+        .container{
+            background-color: #fff;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form{
+            margin-top: 20px;
+        }
+        .form-group{
+            margin-bottom: 15px;
+        }
+        label{
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 99%;
+            margin-bottom: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button{
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: #0056b3;
+        }
+        .bill-details{
+            margin-top: 20px;
+            display: none;
+        }
+        .bill-details p{
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="positiveInt" class="box">
+        <label>
+            Enter a Number
+            <input type="text" placeholder="Enter positive integer" id="positiveIntInput">
+        </label>
+        <button onclick="positiveIntInput()">Enter</button>
+    </div>
+    <div id="negativeInt" class="box">
+        <label>
+            Enter a Number
+            <input type="text" placeholder="Enter negative integer" id="negativeIntInput">
+        </label>
+        <button onclick="negativeIntInput()">Enter</button>
+    </div>
+    <div id="absolute" class="box">
+        <label>
+            Enter a Number
+            <input type="text" placeholder="Enter a number to find absolute number" id="absoluteValue">
+        </label>
+        <button onclick="absoluteValue()">Enter</button>
+    </div>
+    <div id="random" class="box">
+        <button onclick="randomValue()">Enter to find dice number</button>
+    </div>
+    <div id="randomCoin" class="box">
+        <button onclick="headTails()">Toss</button>
+    </div>
+    <div id="randomHundred" class="box">
+        <button onclick="randomHundredNumbers()">Generate Numbers 1 to 100</button>
+    </div>
+    <div id="weight" class="box">
+        <label>
+            Enter Your Weight in kilograms
+            <input type="text" placeholder="50 kgs etc..." id="weightValue">
+        </label>
+        <button onclick="weightNumParser()">Enter</button>
+    </div>
+    <div id="randomNumber" class="box">
+        <label>
+            Enter a Number
+            <input type="text" placeholder="Enter number b/w 1 to 10" id="randomNum">
+        </label>
+        <button onclick="randomNumGame()">Enter</button>
+    </div>
+    <div id="date" class="box">
+        <button onclick="date()">View Date</button>
+    </div>
+    <div id="month" class="box">
+        <button onclick="getMonth()">View Month</button>
+    </div>
+    <div id="day" class="box">
+        <button onclick="getDay()">View Day</button>
+    </div>
+    <div id="funDay" class="box">
+        <button onclick="funDay()">View Fun or Work Day</button>
+    </div>
+    <div id="firstFifteenDay" class="box">
+        <button onclick="monthDays()">1st or Last 15 Days</button>
+    </div>
+    <div id="elapsedTime" class="box">
+        <p id="currentTime"></p>
+        <p id="currentTimeInMillisecond"></p>
+        <p id="1970Time"></p>
+        <button onclick="elapsedTime()">Watch Time Since 1970</button>
+    </div>
+    <div id="amPm" class="box" >
+        <button onclick="amPm()">Find AM or PM</button>
+    </div>
+    <div id="laterDate" class="box" >
+        <button onclick="lastDayOf2020()">Find Later Date</button>
+    </div>
+    <div class="box" id="dayPass">
+        <button onclick="daysPassAfterRamzan()">Day passed after Ramzan 2015 June</button>
+    </div>
+    <div id="minutePass" class="box">
+        <button onclick="minutesPassedAfter2015()">Minute Pass After 2015</button>
+    </div>
+    <div id="hourPass" class="box">
+        <button onclick="hourPass()">Hour Pass After 2015, Dec, 5, 22, 50, 16</button>
+    </div>
+    <div id="yearPass" class="box">
+        <button onclick="yearPass()">Year Pass After 1915</button>
+    </div>
+    <div id="age" class="box">
+        <label>
+            Enter Your Birth Year
+            <input type="text" placeholder="2000" id="birthYear">
+        </label>
+        <button onclick="age()">Enter</button>
+    </div>
+    <div class="container">
+        <h1>K-Electric Bill</h1>
+        <form id="billForm">
+            <div class="form-group">
+                <label for="customerName">Customer Name:</label>
+                <input type="text" id="customerName" required>
+            </div>
+            <div class="form-group">
+                <label for="currentMonth">Current Month:</label>
+                <input type="text" id="currentMonth" required>
+            </div>
+            <div class="form-group">
+                <label for="numberOfUnits">Number of Units:</label>
+                <input type="number" id="numberOfUnits" required>
+            </div>
+            <div class="form-group">
+                <label for="chargesPerUnit">Charges per Unit:</label>
+                <input type="number" id="chargesPerUnit" required step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="dueDate">Due Date:</label>
+                <input type="date" id="dueDate" required>
+            </div>
+            <button type="button" id="calculateButton" onclick="calculateBill()">Calculate Bill</button>
+        </form>
+        <div class="bill-details" id="billDetails">
+            <p><strong>Net Amount Payable (within Due Date): </strong><span id="netAmount"></span></p>
+            <p><strong>Late Payment Surcharge: </strong><span id="latePaymentSurcharge"></span></p>
+            <p><strong>Gross Amount Payable (after Due Date): </strong><span id="grossAmount"></span></p>
+        </div>
+    </div>
+</body>
+<script>
+    function positiveIntInput() {
+        let num = parseFloat(document.getElementById('positiveIntInput').value);
+        let element1 = document.createElement('p');
+        element1.innerHTML = 'Number:'+num;
+        let element2 = document.createElement('p');
+        element2.innerHTML = 'Ceil Value:'+Math.ceil(num);
+        let element3 = document.createElement('p');
+        element3.innerHTML = 'Floor Value:'+Math.floor(num);
+        let element4 = document.createElement('p');
+        element4.innerHTML = 'Round off Value:'+Math.round(num);
+        document.getElementById('positiveInt').appendChild(element1);
+        document.getElementById('positiveInt').appendChild(element2);
+        document.getElementById('positiveInt').appendChild(element3);
+        document.getElementById('positiveInt').appendChild(element4);
+    }
+    function negativeIntInput() {
+        let num = parseFloat(document.getElementById('negativeIntInput').value);
+        let element1 = document.createElement('p');
+        element1.innerHTML = 'Number:'+num;
+        let element2 = document.createElement('p');
+        element2.innerHTML = 'Ceil Value:'+Math.ceil(num);
+        let element3 = document.createElement('p');
+        element3.innerHTML = 'Floor Value:'+Math.floor(num);
+        let element4 = document.createElement('p');
+        element4.innerHTML = 'Round off Value:'+Math.round(num);
+        document.getElementById('negativeInt').appendChild(element1);
+        document.getElementById('negativeInt').appendChild(element2);
+        document.getElementById('negativeInt').appendChild(element3);
+        document.getElementById('negativeInt').appendChild(element4);
+    }
+    function absoluteValue(){
+        let num = document.getElementById('absoluteValue').value;
+        let element1 = document.createElement('p');
+        element1.innerHTML = 'The absolute value of '+num+' is '+Math.abs(num);
+        document.getElementById('absolute').appendChild(element1);
+    }
+    function randomValue(){
+        let element1 = document.createElement('p');
+        element1.innerHTML = 'Random dice value:'+Math.floor((Math.random()*6)+1);
+        document.getElementById('random').appendChild(element1);
+    }
+    function headTails(){
+        let element1 = document.createElement('p');
+        let headTail = Math.floor((Math.random()*2)+1);
+        if(headTail === 1){
+            element1.innerHTML = headTail+'<br> random coin value:Tails';
+        }else if(headTail === 2){
+            element1.innerHTML = headTail+'<br>random coin value:Heads';
+        }
+        document.getElementById('randomCoin').appendChild(element1);
+    }
+    function randomHundredNumbers(){
+        let element1 = document.createElement('p');
+        element1.innerHTML = 'Random number between 1 to 100:'+Math.floor((Math.random()*100)+1);
+        document.getElementById('randomHundred').appendChild(element1);
+    }
+    function weightNumParser(){
+        let num = parseFloat(document.getElementById('weightValue').value);
+        let element1 = document.createElement('p');
+        element1.innerHTML = 'The weight of user is:'+num+' kilograms';
+        document.getElementById('weight').appendChild(element1);
+    }
+    function randomNumGame(){
+        let num = +document.getElementById('randomNum').value;
+        let element1 = document.createElement('p');
+        let randomNumber = Math.floor((Math.random()*10)+1);
+        if(num === randomNumber){
+            element1.innerHTML = 'Congratulations...';
+        }else {
+            element1.innerHTML = 'Try again!!!';
+        }
+        document.getElementById('randomNumber').appendChild(element1);
+    }
+    function date(){
+        let date = new Date();
+        document.getElementById('date').innerHTML = ''+date;
+    }
+    function getMonth(){
+        let date = new Date;
+        let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        document.getElementById('month').innerHTML = month[date.getMonth()];
+    }
+    function getDay(){
+        let date = new Date;
+        let day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        document.getElementById('day').innerHTML = day[date.getDay()];
+    }
+    function funDay(){
+        let date = new Date;
+        let day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        if(day[date.getDay()] === 'Sun' || day[date.getDay()] === 'Sat' )
+            document.getElementById('funDay').innerHTML = 'It`s a fun day';
+        else
+            document.getElementById('funDay').innerHTML = 'It`s a work day';
+    }
+    function monthDays(){
+        let date = new Date();
+        if(date.getDate() < 15)
+            document.getElementById('firstFifteenDay').innerHTML = 'First Fifteen Days of a Month';
+        else
+            document.getElementById('firstFifteenDay').innerHTML = 'Last Fifteen Days of a Month';
+    }
+    function elapsedTime(){
+        const currentDate = new Date();
+        const elapsedDate = new Date(1970, 0, 1, 0, 0, 0);
+        const timeDifferenceMilliseconds = currentDate - elapsedDate;
+        const minutesSinceEpoch = Math.floor(timeDifferenceMilliseconds / (1000 * 60));
+        document.getElementById('currentTime').innerHTML = 'Current Time:'+currentDate;
+        document.getElementById('currentTimeInMillisecond').innerHTML = 'Elapsed Time in millisecond Since Jan, 1, 1970:'+timeDifferenceMilliseconds;
+        document.getElementById('1970Time').innerHTML = 'Elapsed Time in minutes Since Jan, 1, 1970:'+minutesSinceEpoch;
+    }
+    function amPm(){
+        let date = new Date();
+        if(date.getHours() < 12)
+            document.getElementById('amPm').innerHTML = 'It`a AM';
+        else
+            document.getElementById('amPm').innerHTML = 'It`a PM';
+    }
+    function lastDayOf2020(){
+        let laterDate = new Date(2020, 11, 31, 0, 0, 0);
+        document.getElementById('laterDate').innerHTML = 'Later date:'+laterDate;
+    }
+    function daysPassAfterRamzan(){
+        let date = new Date(2015, 6, 15);
+        let dateCurrent = new Date();
+        let noOfDaysPast = (dateCurrent - date)/(1000*60*60*24);
+        document.getElementById('dayPass').innerHTML = Math.floor(noOfDaysPast)+' days have passed after 1st Ramzan 2015';
+    }
+    function minutesPassedAfter2015(){
+        let laterDate = new Date(2015, 11, 5, 22, 50, 16);
+        let currentDate = new Date();
+        let passedSecond = (currentDate-laterDate)/1000;
+        document.getElementById('minutePass').innerHTML = 'On the reference date '+laterDate+', <br>'+Math.floor(passedSecond)+' seconds had passes since 2015';
+    }
+    function hourPass() {
+        let laterDate = new Date(2015, 11, 5, 23, 50, 16);
+        let oneHourLaterDate = new Date(2015, 11, 5, 22, 50, 16);
+        let passedHour = (laterDate - oneHourLaterDate)/(1000*60*60);
+        document.getElementById('hourPass').innerHTML = 'Current date:'+laterDate+'<br>'+passedHour+' hour ago, it was '+oneHourLaterDate;
+    }
+    function yearPass(){
+        let laterDate = new Date(1915, 11, 5, 23, 9, 37);
+        let currentDate = new Date(2015, 11, 5, 23, 9, 37);
+        let yearPass = currentDate.getFullYear() - laterDate.getFullYear();
+        document.getElementById('yearPass').innerHTML = 'current date:'+currentDate+'<br>'+yearPass+' years back, it was '+laterDate;
+    }
+    function age(){
+        let birthYearInput = parseInt(document.getElementById('birthYear').value);
+        let birthYear = new Date(birthYearInput).getFullYear();
+        let currentYear =  new Date().getFullYear();
+        let age = currentYear - birthYearInput;
+        document.getElementById('age').innerHTML = 'Your age is:'+age+'<br>Your Birth Year is '+birthYear;
+    }
+    function calculateBill() {
+        const numberOfUnits = parseFloat(getInputValue("numberOfUnits"));
+        const chargesPerUnit = parseFloat(getInputValue("chargesPerUnit"));
+        const dueDate = new Date(getInputValue("dueDate"));
+        const netAmount = calculateNetAmount(numberOfUnits, chargesPerUnit);
+        const latePaymentSurcharge = calculateLatePaymentSurcharge(dueDate, netAmount);
+        const grossAmount = calculateGrossAmount(netAmount, latePaymentSurcharge);
+        displayBillDetails(netAmount, latePaymentSurcharge, grossAmount);
+    }
+    function getInputValue(elementId) {
+        return document.getElementById(elementId).value;
+    }
+    function calculateNetAmount(numberOfUnits, chargesPerUnit) {
+        return (numberOfUnits * chargesPerUnit).toFixed(2);
+    }
+    function calculateLatePaymentSurcharge(dueDate, netAmount) {
+        const currentDate = new Date();
+        return (dueDate < currentDate ? 0.1 * netAmount : 0).toFixed(2);
+    }
+    function calculateGrossAmount(netAmount, latePaymentSurcharge) {
+        return (parseFloat(netAmount) + parseFloat(latePaymentSurcharge)).toFixed(2);
+    }
+    function displayBillDetails(netAmount, latePaymentSurcharge, grossAmount) {
+        const billDetails = document.getElementById("billDetails");
+        billDetails.style.display = "block";
+        document.getElementById("netAmount").textContent = netAmount;
+        document.getElementById("latePaymentSurcharge").textContent = latePaymentSurcharge;
+        document.getElementById("grossAmount").textContent = grossAmount;
+    }
+</script>
+</html>
